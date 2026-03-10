@@ -44,14 +44,29 @@ class MainActivity : ComponentActivity() {
 
         @SuppressLint("QueryPermissionsNeeded")
         fun callFriend(inputText: String) {
-            val phone = "tel:${inputText}"
+            if (inputText.isNotEmpty()) {
+                val phone = "tel:${inputText}"
 
-            val intent = Intent(Intent.ACTION_DIAL).apply {
-                data = phone.toUri()
+                val intent = Intent(Intent.ACTION_DIAL).apply {
+                    data = phone.toUri()
+                }
+
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                }
             }
+        }
 
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
+        fun shareWith(inputText: String) {
+            if (inputText.isNotEmpty()) {
+                val intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, inputText)
+                    type = "text/plain"
+                }
+
+                val shareIntent = Intent.createChooser(intent, null)
+                startActivity(shareIntent)
             }
         }
 
@@ -86,6 +101,14 @@ class MainActivity : ComponentActivity() {
                                 .width(250.dp)
                                 .padding(vertical = 20.dp)) {
                             Text(text = "Позвонить другу")
+                        }
+
+                        Button(onClick = {
+                            shareWith(inputText.value)
+                        }, modifier = Modifier
+                            .width(250.dp)
+                            .padding(vertical = 20.dp)) {
+                            Text(text = "Поделиться через")
                         }
                     }
 
