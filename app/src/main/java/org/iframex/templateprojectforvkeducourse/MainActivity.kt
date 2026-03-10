@@ -1,6 +1,8 @@
 package org.iframex.templateprojectforvkeducourse
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
@@ -24,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.iframex.templateprojectforvkeducourse.ui.theme.TemplateProjectForVkEduCourseTheme
+import androidx.core.net.toUri
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +38,19 @@ class MainActivity : ComponentActivity() {
                 val intent = Intent(this, SecondActivity::class.java).apply {
                     putExtra("DATA_TEXT", inputText)
                 }
+                startActivity(intent)
+            }
+        }
+
+        @SuppressLint("QueryPermissionsNeeded")
+        fun callFriend(inputText: String) {
+            val phone = "tel:${inputText}"
+
+            val intent = Intent(Intent.ACTION_DIAL).apply {
+                data = phone.toUri()
+            }
+
+            if (intent.resolveActivity(packageManager) != null) {
                 startActivity(intent)
             }
         }
@@ -61,6 +78,14 @@ class MainActivity : ComponentActivity() {
                         }, modifier = Modifier
                             .padding(horizontal = 10.dp)) {
                             Text(text="Открыть вторую Activity")
+                        }
+
+                        Button(onClick = {
+                            callFriend(inputText.value)
+                        }, modifier = Modifier
+                                .width(250.dp)
+                                .padding(vertical = 20.dp)) {
+                            Text(text = "Позвонить другу")
                         }
                     }
 
