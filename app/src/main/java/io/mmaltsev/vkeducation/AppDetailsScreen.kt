@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -26,7 +27,6 @@ import io.mmaltsev.vkeducation.ui.theme.VkEducationTheme
 @Composable
 fun AppDetailsScreen(
     navController: NavController?,
-    modifier: Modifier = Modifier,
 ) {
     val app = remember { getApp() }
 
@@ -35,7 +35,9 @@ fun AppDetailsScreen(
 
     var descriptionCollapsed by remember { mutableStateOf(false) }
 
-    Column(modifier) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .safeDrawingPadding()) {
         Toolbar(
             onBackClick = {
                 navController?.popBackStack()
@@ -115,9 +117,6 @@ private fun getApp(): App = App(
 @Composable
 private fun Preview() {
     VkEducationTheme {
-        AppDetailsScreen(
-            null,
-            modifier = Modifier.fillMaxSize(),
-        )
+        AppDetailsScreen(null)
     }
 }

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -27,6 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 import io.mmaltsev.vkeducation.R
+import io.mmaltsev.vkeducation.ui.theme.RuStoreBlue
+import io.mmaltsev.vkeducation.ui.theme.RuStoreLightBlue
 
 @Composable
 fun AppTopMenu(modifier: Modifier = Modifier) {
@@ -35,7 +38,9 @@ fun AppTopMenu(modifier: Modifier = Modifier) {
         Column(modifier = Modifier) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.background(Color.Blue).padding(20.dp)
+                modifier = Modifier
+                    .background(RuStoreBlue)
+                    .padding(20.dp)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -47,6 +52,7 @@ fun AppTopMenu(modifier: Modifier = Modifier) {
                         modifier = Modifier
                             .width(64.dp)
                             .height(64.dp)
+                            .clip(CircleShape)
                     )
                     Text(
                         text = "RuStore",
@@ -64,11 +70,11 @@ fun AppTopMenu(modifier: Modifier = Modifier) {
                     contentDescription = null,
                     tint = Color.White,
                     modifier = Modifier
-                        .width(64.dp)
-                        .height(64.dp)
+                        .width(48.dp)
+                        .height(48.dp)
                         .clip(RoundedCornerShape(10.dp))
-                        .background(Color.Cyan)
-                        .padding(10.dp)
+                        .background(RuStoreLightBlue)
+                        .padding(5.dp)
                 )
             }
         }
