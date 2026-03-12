@@ -20,10 +20,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import io.mmaltsev.vkeducation.ui.theme.VkEducationTheme
 
 @Composable
 fun AppDetailsScreen(
+    navController: NavController?,
     modifier: Modifier = Modifier,
 ) {
     val app = remember { getApp() }
@@ -36,8 +38,8 @@ fun AppDetailsScreen(
     Column(modifier) {
         Toolbar(
             onBackClick = {
-                // TODO: Открыть предыдущий экран через Jetpack Navigation
-                Toast.makeText(context, underDevelopmentText, Toast.LENGTH_SHORT).show()
+                navController?.popBackStack()
+//                Toast.makeText(context, underDevelopmentText, Toast.LENGTH_SHORT).show()
             },
             onShareClick = {
                 Toast.makeText(context, underDevelopmentText, Toast.LENGTH_SHORT).show()
@@ -114,6 +116,7 @@ private fun getApp(): App = App(
 private fun Preview() {
     VkEducationTheme {
         AppDetailsScreen(
+            null,
             modifier = Modifier.fillMaxSize(),
         )
     }
